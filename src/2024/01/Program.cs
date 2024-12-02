@@ -19,3 +19,11 @@ for (int x = 0; x < list1.Count; x++)
     distance += Math.Abs(list1[x] - list2[x]);
 }
 Console.WriteLine(distance);
+
+var count2 = list2.GroupBy(v => v).ToDictionary(k => k.Key, v => v.Count());
+var similarity = 0;
+foreach (var v in list1)
+{
+    similarity += count2.TryGetValue(v, out var count) ? count * v : 0;
+}
+Console.WriteLine(similarity);
